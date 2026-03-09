@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP THE BUBBLE – GLUCOSE CONTROL CHALLENGE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="title">
+                <h1>POP THE BUBBLE – GLUCOSE CONTROL CHALLENGE</h1>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <label>Glucose Level:</label>
+                    <span id="glucose-display">120</span> mg/dL
+                </div>
+                <div class="stat">
+                    <label>Score:</label>
+                    <span id="score-display">0</span>
+                </div>
+                <div class="stat">
+                    <label>Time:</label>
+                    <span id="time-display">60</span>s
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="start-btn" class="btn btn-start">START GAME</button>
+            <button id="pause-btn" class="btn btn-pause" disabled>PAUSE</button>
+            <button id="restart-btn" class="btn btn-restart" disabled>RESTART</button>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="game-area">
+            <!-- Bubbles will be spawned here -->
+        </div>
+
+        <!-- Glucose Meter Bar -->
+        <div class="glucose-meter-container">
+            <div class="glucose-meter">
+                <div class="hypoglycemia-zone" title="Hypoglycemia: < 70 mg/dL"></div>
+                <div class="normal-zone" title="Normal: 70-140 mg/dL"></div>
+                <div class="hyperglycemia-zone" title="Hyperglycemia: > 250 mg/dL"></div>
+            </div>
+            <div class="glucose-marker" id="glucose-marker"></div>
+        </div>
+
+        <!-- Warnings -->
+        <div id="warning-box" class="warning-box" style="display:none;"></div>
+
+        <!-- Explanation Popup -->
+        <div id="explanation-popup" class="explanation-popup" style="display:none;">
+            <div class="popup-content">
+                <h2 id="popup-title"></h2>
+                <p id="popup-explanation"></p>
+                <p id="popup-effect"></p>
+                <button class="btn-close" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="game-over-screen" style="display:none;">
+            <div class="game-over-content">
+                <h1>GAME OVER</h1>
+                <p id="game-over-reason"></p>
+                <p class="final-score">Final Score: <span id="final-score">0</span></p>
+                <p class="final-glucose">Final Glucose: <span id="final-glucose">0</span> mg/dL</p>
+                <button class="btn btn-restart-game" onclick="location.reload()">PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="bubbles.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

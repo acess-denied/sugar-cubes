@@ -1,0 +1,467 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    color: white;
+    gap: 30px;
+}
+
+.title h1 {
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stats {
+    display: flex;
+    gap: 40px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat label {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.stat span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-start {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.btn-start:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-pause:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(245, 87, 108, 0.3);
+}
+
+.btn-restart {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-restart:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Game Area */
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 3px solid #2196F3;
+    box-shadow: inset 0 0 20px rgba(33, 150, 243, 0.1);
+}
+
+/* Bubble Styles */
+.bubble {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    user-select: none;
+    transition: transform 0.1s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: float 3s infinite ease-in-out;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.bubble:hover {
+    transform: scale(1.1);
+}
+
+.bubble.decreases-glucose {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.bubble.increases-glucose {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.bubble.neutral-glucose {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+@keyframes bubbleRise {
+    from {
+        bottom: -100px;
+        opacity: 1;
+    }
+    to {
+        bottom: 600px;
+        opacity: 0;
+    }
+}
+
+.bubble.rising {
+    animation: float 3s infinite ease-in-out, bubbleRise 5s linear forwards;
+}
+
+/* Glucose Meter */
+.glucose-meter-container {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+}
+
+.glucose-meter {
+    display: flex;
+    height: 100%;
+}
+
+.hypoglycemia-zone {
+    flex: 0.25;
+    background: linear-gradient(to right, #1976d2, #42a5f5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.normal-zone {
+    flex: 0.5;
+    background: linear-gradient(to right, #43a047, #66bb6a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.hyperglycemia-zone {
+    flex: 0.25;
+    background: linear-gradient(to right, #e53935, #ef5350);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.glucose-marker {
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background: #000;
+    top: 0;
+    left: 50%;
+    transform: translateX(-2px);
+    z-index: 10;
+}
+
+/* Warning Box */
+.warning-box {
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+.warning-box.hypoglycemia {
+    background: #bbdefb;
+    color: #1565c0;
+    border-left: 5px solid #1565c0;
+}
+
+.warning-box.hyperglycemia {
+    background: #ffccbc;
+    color: #d84315;
+    border-left: 5px solid #d84315;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Explanation Popup */
+.explanation-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    animation: popupSlideIn 0.3s ease;
+}
+
+.popup-content h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.popup-content p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.popup-content #popup-effect {
+    color: #764ba2;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn-close {
+    padding: 10px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popupSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Game Over Screen */
+.game-over-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.game-over-content {
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    animation: popupSlideIn 0.3s ease;
+}
+
+.game-over-content h1 {
+    font-size: 48px;
+    color: #d84315;
+    margin-bottom: 20px;
+}
+
+.game-over-content p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.final-glucose {
+    font-size: 24px;
+    font-weight: bold;
+    color: #764ba2;
+    margin-bottom: 30px;
+}
+
+.btn-restart-game {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.btn-restart-game:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .title h1 {
+        font-size: 20px;
+    }
+
+    .game-area {
+        height: 400px;
+    }
+
+    .bubble {
+        width: 70px;
+        height: 70px;
+        font-size: 11px;
+    }
+}
